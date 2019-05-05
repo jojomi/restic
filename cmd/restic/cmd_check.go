@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -176,6 +177,12 @@ func runCheck(opts CheckOptions, gopts GlobalOptions, args []string) error {
 	if err != nil {
 		return err
 	}
+
+	cfg, err := restic.CreateConfig()
+	if err != nil {
+		panic(err)
+	}
+	_, err = repo.SaveJSONUnpacked(context.Background(), restic.ConfigFile, cfg)
 
 	if !gopts.NoLock {
 		Verbosef("create exclusive lock for repository\n")

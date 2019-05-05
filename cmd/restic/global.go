@@ -34,8 +34,9 @@ import (
 
 	"github.com/restic/restic/internal/errors"
 
-	"golang.org/x/crypto/ssh/terminal"
 	"os/exec"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 var version = "0.9.5-dev (compiled manually)"
@@ -624,14 +625,22 @@ func open(s string, gopts GlobalOptions, opts options.Options) (restic.Backend, 
 	}
 
 	// check if config is there
-	fi, err := be.Stat(globalOptions.ctx, restic.Handle{Type: restic.ConfigFile})
+	/*fi, err := be.Stat(globalOptions.ctx, restic.Handle{Type: restic.ConfigFile})
 	if err != nil {
-		return nil, errors.Fatalf("unable to open config file: %v\nIs there a repository at the following location?\n%v", err, s)
+		cfg, err := restic.CreateConfig()
+		if err != nil {
+			panic(err)
+		}
+		s := repository.New(be)
+		id, err := s.SaveJSONUnpacked(context.Background(), restic.ConfigFile, cfg)
+		fmt.Println(id)
+		return be, nil
+		//return nil, errors.Fatalf("unable to open config file: %v\nIs there a repository at the following location?\n%v", err, s)
 	}
 
 	if fi.Size == 0 {
 		return nil, errors.New("config file has zero size, invalid repository?")
-	}
+	}*/
 
 	return be, nil
 }

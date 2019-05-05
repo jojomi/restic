@@ -576,10 +576,10 @@ func (r *Repository) SearchKey(ctx context.Context, password string, maxKeys int
 	r.dataPM.key = key.master
 	r.treePM.key = key.master
 	r.keyName = key.Name()
-	r.cfg, err = restic.LoadConfig(ctx, r)
+	/*r.cfg, err = restic.LoadConfig(ctx, r)
 	if err != nil {
 		return errors.Fatalf("config cannot be loaded: %v", err)
-	}
+	}*/
 	return nil
 }
 
